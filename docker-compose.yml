@@ -1,0 +1,26 @@
+version: "3"
+services:
+  jupyter:
+    build:
+      context: ./
+      args:
+        - UID=${UID}
+        - USERNAME=${USER_NAME}
+        - GID=${GID}
+    image: ${IMAGE_NAME}
+    container_name: $USER_NAME-$nCPU-CPU-GPU$GPU
+    volumes:
+      - ./work:/home/$USER_NAME/work # workをワーキングディレクトリとしてマウント
+      - /etc/shadow:/etc/shadow:ro # パスワードハッシュを読み取り専用でマウント
+      - /etc/passwd:/etc/passwd:ro # 後方互換のため、こちらのパスワードハッシュも読み取り専用でマウント
+    command: jupyter lab --ip='' --port 8888 --allow-root --notebook-dir=/home/$USER_NAME/work -NotebookApp.token=$JUPYTER_TOKEN
+    deploy:
+      resources:
+        limits:
+          cpus: "$nCPU"
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [$GPU]
+              capabilities: [gpu]
+    
