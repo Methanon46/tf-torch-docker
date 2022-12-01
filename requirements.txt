@@ -24,3 +24,4 @@ tensorflow-hub
 keras 
 keras-tuner 
 keras-visualizer
+tensorflow-addons
