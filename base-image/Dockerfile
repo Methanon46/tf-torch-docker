@@ -1,4 +1,3 @@
-# pytorchの動作にはruntimeで十分だが、tensorflowの動作にはdevelが必要
 FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
 LABEL version="0.1"
 ENV TZ Asia/Tokyo
