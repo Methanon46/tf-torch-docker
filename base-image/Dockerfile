@@ -3,9 +3,6 @@ FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
 LABEL version="0.1"
 ENV TZ Asia/Tokyo
 ENV DEBIAN_FRONTEND=noninteractive
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
 
 # ubuntuリポジトリの日本localミラーサイトを参照してapt-getすると速い
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
@@ -22,8 +19,10 @@ RUN apt-get update && apt-get install -y \
     tzdata \
     wget \
     libgl1-mesa-dev \
+    uff-converter-tf\
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+# tensorflow2ではgpuがあると、TensorRTのライブラリをチェックしてwarningを出すので、それ対策をいつかしたい
 
 COPY requirements.txt ${PWD}
 # pythonのパッケージをインストール

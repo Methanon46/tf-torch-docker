@@ -2,3 +2,4 @@ work/*
 !/work/.gitkeep
 *.zip
 .env
+base-image/nv-tensorrt-repo-ubuntu2004-cuda11.6-trt8.4.3.1-ga-20220813_1-1_amd64.deb
