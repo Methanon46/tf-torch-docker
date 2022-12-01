@@ -1,4 +1,5 @@
-FROM nvidia/cuda:11.7.1-runtime-ubuntu20.04
+# pytorchの動作にはruntimeで十分だが、tensorflowの動作にはdevelが必要
+FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
 LABEL version="0.1"
 ENV TZ Asia/Tokyo
 ENV DEBIAN_FRONTEND=noninteractive
@@ -26,11 +27,12 @@ RUN apt-get update && apt-get install -y \
 
 COPY requirements.txt ${PWD}
 # pythonのパッケージをインストール
-RUN pip3 install -U pip
-RUN pip3 install --timeout 100 -r requirements.txt
-RUN pip3 install git+https://github.com/tensorflow/docs
-RUN pip3 install git+https://github.com/tensorflow/examples.git
-RUN pip3 install git+https://www.github.com/keras-team/keras-contrib.git
+RUN pip3 install -U pip \
+ && pip3 install --timeout 100 -r requirements.txt \
+ && pip3 install git+https://github.com/tensorflow/docs \
+ && pip3 install git+https://github.com/tensorflow/examples.git \
+ && pip3 install git+https://www.github.com/keras-team/keras-contrib.git
+
 
 # matplotlibのfontsに日本語フォントを追加
 RUN curl -L  "https://moji.or.jp/wp-content/ipafont/IPAexfont/IPAexfont00401.zip" > font.zip
