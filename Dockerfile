@@ -1,4 +1,7 @@
-FROM tf-torch:latest
+## keras/tensorflowを使用する場合
+# FROM tf:latest
+ARG IMG
+FROM ${IMG}:latest
 # docker-compose.ymlで設定した環境変数を導入
 ARG UID
 ARG GID

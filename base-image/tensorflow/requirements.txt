@@ -12,4 +12,3 @@ opencv-python
 opencv-contrib-python
 albumentations
 comet_ml
-timm

@@ -7,10 +7,11 @@ services:
         - UID=${UID}
         - USERNAME=${USER_NAME}
         - GID=${GID}
+        - IMG=${BASE_IMG}
     image: ${IMAGE_NAME}
     container_name: $USER_NAME-$nCPU-CPU-GPU
     volumes:
-      - ./work:/home/$USER_NAME/work # workをワーキングディレクトリとしてマウント
+      - ~/work:/home/$USER_NAME/work # ~/workをワーキングディレクトリとしてマウント
       - /etc/shadow:/etc/shadow:ro # パスワードハッシュを読み取り専用でマウント
       - /etc/passwd:/etc/passwd:ro # 後方互換のため、こちらのパスワードハッシュも読み取り専用でマウント
     command: jupyter lab --ip='' --port 8888 --allow-root --notebook-dir=/home/$USER_NAME/work -NotebookApp.token=$JUPYTER_TOKEN
