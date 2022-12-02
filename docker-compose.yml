@@ -8,7 +8,7 @@ services:
         - USERNAME=${USER_NAME}
         - GID=${GID}
     image: ${IMAGE_NAME}
-    container_name: $USER_NAME-$nCPU-CPU-GPU$GPU
+    container_name: $USER_NAME-$nCPU-CPU-GPU
     volumes:
       - ./work:/home/$USER_NAME/work # workをワーキングディレクトリとしてマウント
       - /etc/shadow:/etc/shadow:ro # パスワードハッシュを読み取り専用でマウント
