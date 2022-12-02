@@ -1,8 +1,4 @@
 setuptools
-torch
-torchvision
-torchaudio
-torchinfo
 python-dotenv
 matplotlib
 scikit-learn
@@ -16,11 +12,4 @@ opencv-python
 opencv-contrib-python
 albumentations
 comet_ml
-tensorflow<2.11
-tensorflow_datasets 
-tensorflow-addons
-tensorflow-hub 
-keras 
-keras-tuner 
-keras-visualizer
 timm
