@@ -12,3 +12,5 @@ opencv-python
 opencv-contrib-python
 albumentations
 comet_ml
+wfdb
+tensorflow_addons
