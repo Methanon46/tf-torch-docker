@@ -5,9 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # ubuntuリポジトリの日本localミラーサイトを参照してapt-getすると速い
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
-
+RUN apt purge python3
 RUN apt-get update && apt-get install -y \
     sudo\
+    python3.11 \
     python3-pip \
     curl \
     git \
@@ -26,6 +27,7 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt ${PWD}
 # pythonのパッケージをインストール
 RUN pip3 install -U pip \
+ && pip3 install torch==1.13.0+cu117 torchvision==0.14.0+cu117 torchaudio==0.13.0 --extra-index-url https://download.pytorch.org/whl/cu117 \
  && pip3 install --timeout 100 -r requirements.txt
 
 # matplotlibのfontsに日本語フォントを追加
