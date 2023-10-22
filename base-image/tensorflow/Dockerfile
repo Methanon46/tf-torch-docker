@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-gpu
+FROM tensorflow/tensorflow:2.13.0-gpu
 LABEL version="0.1"
 ENV TZ Asia/Tokyo
 ENV DEBIAN_FRONTEND=noninteractive
@@ -18,14 +18,17 @@ RUN apt-get update && apt-get install -y \
     tzdata \
     wget \
     libgl1-mesa-dev \
+    libusb-1.0-0 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 # tensorflow2ではgpuがあると、TensorRTのライブラリをチェックしてwarningを出すので、それ対策をいつかしたい
 
 COPY requirements.txt ${PWD}
-# pythonのパッケージをインストール
+# pythonのパッケージをインストール subprocessでインストールすると困るやつがいるから、最後にinstall
 RUN pip3 install -U pip \
- && pip3 install --timeout 100 -r requirements.txt 
+ && pip3 install --timeout 100 -r requirements.txt \
+ && pip3 install onnx-graphsurgeon
+
 
 
 # matplotlibのfontsに日本語フォントを追加

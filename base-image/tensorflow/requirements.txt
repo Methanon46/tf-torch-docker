@@ -15,3 +15,17 @@ comet_ml
 wfdb
 tensorflow_addons
 iterative-stratification
+# python pacages required for onnx2tf
+onnx
+nvidia-pyindex 
+onnxruntime
+onnxsim 
+simple_onnx_processing_tools 
+onnx2tf 
+h5py 
+psutil
+onnx2tf
+# Python packages required for metadata_writer_for_image_classifier.py
+absl-py
+flatbuffers
+tflite-support
