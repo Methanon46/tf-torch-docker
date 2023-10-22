@@ -5,11 +5,18 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # ubuntuリポジトリの日本localミラーサイトを参照してapt-getすると速い
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
-RUN apt purge python3
-RUN apt-get update && apt-get install -y \
+# python3.12を使用するためにわざわざdeadsnakes/ppaを追加
+RUN apt-get update \
+ && apt-get install -y software-properties-common \
+ && add-apt-repository ppa:deadsnakes/ppa \
+ && apt-get purge -y software-properties-common \
+ && apt-get update \
+ && apt-get install -y \
     sudo\
-    python3.11 \
-    python3-pip \
+    python3.10 \
+ && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
+ && apt-get install -y \
+    python3.11-distutils \
     curl \
     git \
     lv \
@@ -23,6 +30,8 @@ RUN apt-get update && apt-get install -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 # tensorflow2ではgpuがあると、TensorRTのライブラリをチェックしてwarningを出すので、それ対策をいつかしたい
+
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3
 
 COPY requirements.txt ${PWD}
 # pythonのパッケージをインストール
