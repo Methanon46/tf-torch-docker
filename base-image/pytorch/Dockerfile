@@ -16,7 +16,7 @@ RUN apt-get update \
     python3.10 \
  && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
  && apt-get install -y \
-    python3.11-distutils \
+    python3.10-distutils \
     curl \
     git \
     lv \
@@ -42,7 +42,7 @@ RUN pip3 install -U pip \
 # matplotlibのfontsに日本語フォントを追加
 RUN curl -L  "https://moji.or.jp/wp-content/ipafont/IPAexfont/IPAexfont00401.zip" > font.zip
 RUN unzip font.zip
-RUN cp ./IPAexfont00401/ipaexg.ttf /usr/local/lib/python3.8/dist-packages/matplotlib/mpl-data/fonts/ttf/ipaexg.ttf
-RUN chmod 744 /usr/local/lib/python3.8/dist-packages/matplotlib/mpl-data/fonts/ttf/ipaexg.ttf
-RUN echo "font.family : IPAexGothic" >>  /usr/local/lib/python3.8/dist-packages/matplotlib/mpl-data/matplotlibrc
+RUN cp ./IPAexfont00401/ipaexg.ttf /usr/local/lib/python3.10/dist-packages/matplotlib/mpl-data/fonts/ttf/ipaexg.ttf
+RUN chmod 744 /usr/local/lib/python3.10/dist-packages/matplotlib/mpl-data/fonts/ttf/ipaexg.ttf
+RUN echo "font.family : IPAexGothic" >>  /usr/local/lib/python3.10/dist-packages/matplotlib/mpl-data/matplotlibrc
 RUN rm -rf ~/.cache/pip
